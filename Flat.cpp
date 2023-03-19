@@ -1,14 +1,14 @@
 #include "Flat.h"
-
+#include "memory/Heap.h"
 namespace fl
 {
     void initialize()
     {
-        // TODO! MEMORY HEAP INITIALIZING!
+        heap::initialize();
     }
 
     void cleanup()
     {
-        // TODO! MEMORY HEAP CLEANUP!
+        heap::cleanup();
     }
 }

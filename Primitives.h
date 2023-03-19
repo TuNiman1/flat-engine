@@ -84,6 +84,6 @@ static_assert(sizeof(f64) == 8, "Doubles have to be 64 bit since FL_REQUIRE_F64 
 #endif
 
 typedef long double f128;
-#ifdef FL_REQUIRE_f128
+#ifdef FL_REQUIRE_F128
 static_assert(sizeof(f128) == 16, "Long doubles have to be 128 bit since FL_REQUIRE_F128 is defined");
 #endif
