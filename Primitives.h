@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-
+#include <cfloat>
 typedef const char *cString;
 
 // Signed integer types.
