@@ -18,32 +18,32 @@ namespace fl
     class FL_API Input
     {
     public:
-        Input(Window *window, const InputCodes &codes);
+        Input(Window *window, const InputCodes &input_codes);
         ~Input();
 
-        void preUpdate();
-        void postUpdate();
+		void preUpdate();
+		void postUpdate();
 
-        void addKeyEvent(i32 key, bool state);
-        void addButtonEvent(i32 button, bool state);
-        void addMousePositionEvent(f64 x, f64 y);
-        void addMouseScrollEvent(f64 scroll);
+		void addKeyEvent(i32 key, bool state);
+		void addButtonEvent(i32 button, bool state);
+		void addMousePositionEvent(f64 x, f64 y);
+		void addMouseScrollEvent(f64 scroll);
 
-        bool getKeyState(i32 key) const;
-        bool getKeyEvent(i32 key, bool state = true) const;
-        bool getButtonState(i32 button) const;
-        bool getButtonEvent(i32 button, bool state = true) const;
+		bool getKeyState(i32 key) const;
+		bool getKeyEvent(i32 key, bool state = true) const;
+		bool getButtonState(i32 button) const;
+		bool getButtonEvent(i32 button, bool state = true) const;
 
-        bool isMouseGrabbed() const;
-        void setMouseGrabbed(bool grabbed) const;
+		bool isMouseGrabbed() const;
+		void setMouseGrabbed(bool grabbed) const;
 
-        inline f64 getMouseX() const { return m_mouseX; }
-        inline f64 getMouseY() const { return m_mouseY; }
-        inline f64 getMouseScroll() const { return m_mouseScroll; }
+		inline f64 getMouseX() const { return m_mouseX; }
+		inline f64 getMouseY() const { return m_mouseY; }
+		inline f64 getMouseScroll() const { return m_mouseScroll; }
 
-        inline f64 getMouseDX() const { return m_mouseDX; }
-        inline f64 getMouseDY() const { return m_mouseDY; }
-        inline f64 getMouseDScroll() const { return m_mouseDScroll; }
+		inline f64 getMouseDX() const { return m_mouseDX; }
+		inline f64 getMouseDY() const { return m_mouseDY; }
+		inline f64 getMouseDScroll() const { return m_mouseDScroll; }
 
     private:
         Window *m_window;

@@ -1,6 +1,5 @@
 #include "GraphicsAPI.h"
-
-#include <GL/GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 #include <SDL2/SDL.h>
 #include "../debug/Exception.h"
 
@@ -57,7 +56,7 @@ namespace fl
             graphics::graphics_api = graphics_api;
         }
 
-        void cleanup()
+        void cleanup() 
         {
             switch (graphics_api)
             {
