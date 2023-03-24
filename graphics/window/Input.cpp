@@ -305,7 +305,7 @@ namespace fl
 
 	bool Input::getKeyState(i32 key) const
 	{
-		auto& it = m_keyStates.find(key);
+		auto it = m_keyStates.find(key);
 		if (it == m_keyStates.end()) {
 			return false;
 		}
@@ -314,7 +314,7 @@ namespace fl
 
 	bool Input::getKeyEvent(i32 key, bool state) const
 	{
-		auto& it = m_keyEvents.find(key);
+		auto it = m_keyEvents.find(key);
 		if (it == m_keyEvents.end()) {
 			return false;
 		}
@@ -323,7 +323,7 @@ namespace fl
 
 	bool Input::getButtonState(i32 button) const
 	{
-		auto& it = m_buttonStates.find(button);
+		auto it = m_buttonStates.find(button);
 		if (it == m_buttonStates.end()) {
 			return false;
 		}
@@ -332,7 +332,7 @@ namespace fl
 
 	bool Input::getButtonEvent(i32 button, bool state) const
 	{
-		auto& it = m_buttonEvents.find(button);
+		auto it = m_buttonEvents.find(button);
 		if (it == m_buttonEvents.end()) {
 			return false;
 		}
