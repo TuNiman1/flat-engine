@@ -31,8 +31,6 @@ typedef fl::FixedWidthBigInteger<128, true> ui1024;
 #include "math/Quaternion.h"
 #include "math/Transform.h"
 
-// 2 dimensional vectors
-
 typedef fl::Vector2<i8> i8v2;
 typedef fl::Vector2<i16> i16v2;
 typedef fl::Vector2<i32> i32v2;
@@ -75,8 +73,6 @@ struct std::hash<i32v2>
         return std::hash<i32>()(v.x) << 1 ^ std::hash<i32>()(v.y);
     }
 };
-
-// 3 dimensional vectors
 
 typedef fl::Vector3<i8> i8v3;
 typedef fl::Vector3<i16> i16v3;
@@ -166,25 +162,17 @@ struct std::hash<i32v4>
     }
 };
 
-// 3x3 matrices
-
 typedef fl::Matrix3<f32> f32m3;
 typedef fl::Matrix3<f64> f64m3;
 typedef fl::Matrix3<f128> f128m3;
-
-// 4x4 matrices
 
 typedef fl::Matrix4<f32> f32m4;
 typedef fl::Matrix4<f64> f64m4;
 typedef fl::Matrix4<f128> f128m4;
 
-// Quaternions
-
 typedef fl::Quaternion<f32> f32q;
 typedef fl::Quaternion<f64> f64q;
 typedef fl::Quaternion<f128> f128q;
-
-// Transforms
 
 typedef fl::Transform<f32> f32t;
 typedef fl::Transform<f64> f64t;
