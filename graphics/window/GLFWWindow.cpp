@@ -5,13 +5,18 @@
 #ifdef FL_GRAPHICS_GLFW
 
 #include "../../glad/include/glad/glad.h"
+#if defined(__linux__)
 #include <GLFW/glfw3.h>
+#elif defined(_WIN64)
+#include <GL/GLFW/glfw3.h>
+#endif
 #include "../../debug/Exception.h"
 #include "../../io/ImageSaver.h"
 
-namespace fl {
+namespace fl
+{
 
-	GLFWWindow::GLFWWindow() : Window(INPUTCODES_GLFW), m_window(nullptr)
+	GLFWWindow::GLFWWindow() : Window(INPUT_GLFW), m_window(nullptr)
 	{
 	}
 
@@ -19,10 +24,10 @@ namespace fl {
 	{
 	}
 
-	void GLFWWindow::initialize(cString title, ui16f width, ui16f height, bool fullscreen, bool resizable, const VSync& vsync)
+	void GLFWWindow::initialize(cString title, ui16f width, ui16f height, bool fullscreen, bool resizable, const VerticalSync &vsync)
 	{
-		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+		GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode *mode = glfwGetVideoMode(monitor);
 
 		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
 		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
@@ -30,37 +35,41 @@ namespace fl {
 		glfwWindowHint(GLFW_DEPTH_BITS, mode->refreshRate);
 		glfwWindowHint(GLFW_DOUBLEBUFFER, 1);
 		glfwWindowHint(GLFW_RESIZABLE, resizable ? 1 : 0);
-		
-		if (width == WINDOW_MONITOR_RESOLUTION) width = mode->width;
-		if (height == WINDOW_MONITOR_RESOLUTION) height = mode->height;
+
+		if (width == WINDOW_RES)
+			width = mode->width;
+		if (height == WINDOW_RES)
+			height = mode->height;
 
 		m_window = glfwCreateWindow(width, height, title, fullscreen ? monitor : nullptr, nullptr);
 
-		if (m_window == nullptr) {
+		if (m_window == nullptr)
+		{
 			log::fatal("Could not create GLFW window");
 			exception::crash();
 		}
 
 		glfwMakeContextCurrent(m_window);
 
-		if (!gladLoadGL()) {
+		if (!gladLoadGL())
+		{
 			log::fatal("Could not initialize glad");
 			exception::crash();
 		}
-		
+
 		glfwSetWindowPos(m_window, mode->width / 2 - width / 2, mode->height / 2 - height / 2);
 		glfwSwapInterval((int)vsync);
 
 		log::info("OpenGL context information:\n\n", "Vendor: ", reinterpret_cast<cString>(glGetString(GL_VENDOR)), "\n", "GPU: ", reinterpret_cast<cString>(glGetString(GL_RENDERER)), "\n", "OpenGL Version: ", reinterpret_cast<cString>(glGetString(GL_VERSION)), "\n");
 
-		glfwSetWindowUserPointer(m_window, (void*)this);
-	
+		glfwSetWindowUserPointer(m_window, (void *)this);
+
 		glfwSetKeyCallback(m_window, keyCallback);
 		glfwSetMouseButtonCallback(m_window, buttonCallback);
 		glfwSetCursorPosCallback(m_window, mouseCallback);
 		glfwSetScrollCallback(m_window, scrollCallback);
 	}
-	
+
 	void GLFWWindow::cleanup()
 	{
 		glfwDestroyWindow(m_window);
@@ -91,7 +100,7 @@ namespace fl {
 	{
 		return glfwWindowShouldClose(m_window) != 0;
 	}
-	
+
 	ui16f GLFWWindow::getWidth() const
 	{
 		int width;
@@ -99,7 +108,7 @@ namespace fl {
 		glfwGetFramebufferSize(m_window, &width, &height);
 		return width;
 	}
-	
+
 	ui16f GLFWWindow::getHeight() const
 	{
 		int width;
@@ -107,7 +116,7 @@ namespace fl {
 		glfwGetFramebufferSize(m_window, &width, &height);
 		return height;
 	}
-	
+
 	f32 GLFWWindow::getAspectRatio() const
 	{
 		int width;
@@ -131,10 +140,10 @@ namespace fl {
 		int width;
 		int height;
 		glfwGetFramebufferSize(m_window, &width, &height);
-		
+
 		ui32f pixelSize = 3;
 
-		ui8* pixels = new ui8[pixelSize * width * height];
+		ui8 *pixels = new ui8[pixelSize * width * height];
 
 		i32 readBuffer;
 		glGetIntegerv(GL_READ_BUFFER, &readBuffer);
@@ -142,8 +151,9 @@ namespace fl {
 		glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 		glReadBuffer(readBuffer);
 
-		ui8* flippedPixels = new ui8[pixelSize * width * height];
-		for (ui32f y = 0; y < static_cast<ui32f>(height); y++) {
+		ui8 *flippedPixels = new ui8[pixelSize * width * height];
+		for (ui32f y = 0; y < static_cast<ui32f>(height); y++)
+		{
 			memcpy(flippedPixels + (pixelSize * y * width), pixels + (pixelSize * (height - y - 1) * width), width * pixelSize);
 		}
 		delete[] pixels;
@@ -152,27 +162,27 @@ namespace fl {
 		delete[] flippedPixels;
 	}
 
-	void GLFWWindow::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+	void GLFWWindow::keyCallback(GLFWWindow *window, int key, int scancode, int action, int mods)
 	{
-		GLFWWindow* w = reinterpret_cast<GLFWWindow*>(glfwGetWindowUserPointer(window));
+		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addKeyEvent(key, action != GLFW_RELEASE);
 	}
 
-	void GLFWWindow::buttonCallback(GLFWwindow* window, int button, int action, int mods)
+	void GLFWWindow::buttonCallback(GLFWWindow *window, int button, int action, int mods)
 	{
-		GLFWWindow* w = reinterpret_cast<GLFWWindow*>(glfwGetWindowUserPointer(window));
+		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addButtonEvent(button, action != GLFW_RELEASE);
 	}
 
-	void GLFWWindow::mouseCallback(GLFWwindow* window, double xpos, double ypos)
+	void GLFWWindow::mouseCallback(GLFWWindow *window, double xpos, double ypos)
 	{
-		GLFWWindow* w = reinterpret_cast<GLFWWindow*>(glfwGetWindowUserPointer(window));
+		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addMousePositionEvent(xpos, ypos);
 	}
 
-	void GLFWWindow::scrollCallback(GLFWwindow* window, double xoff, double yoff)
+	void GLFWWindow::scrollCallback(GLFWWindow *window, double xoff, double yoff)
 	{
-		GLFWWindow* w = reinterpret_cast<GLFWWindow*>(glfwGetWindowUserPointer(window));
+		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addMouseScrollEvent(yoff);
 	}
 

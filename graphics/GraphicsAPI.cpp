@@ -1,5 +1,10 @@
 #include "GraphicsAPI.h"
+
+#if defined(__linux__)
 #include <GLFW/glfw3.h>
+#elif defined(_WIN64)
+#include <GL/GLFW/glfw3.h>
+#endif
 #include <SDL2/SDL.h>
 #include "../debug/Exception.h"
 
@@ -27,7 +32,7 @@ namespace fl
 
         GraphicsAPI graphics_api;
 
-        void initialize(const GraphicsAPI graphics_api)
+        void initialize(const GraphicsAPI &graphics_api)
         {
             switch (graphics_api)
             {
@@ -56,7 +61,7 @@ namespace fl
             graphics::graphics_api = graphics_api;
         }
 
-        void cleanup() 
+        void cleanup()
         {
             switch (graphics_api)
             {

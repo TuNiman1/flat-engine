@@ -29,5 +29,13 @@ namespace fl
         void setMouseGrabbed(bool grabbed) const override;
 
         void captureScreenshot(cString file) const override;
+
+    private:
+        SDL_Window *m_window;
+        void *m_context;
+        bool m_closeRequested;
+
+        std::unordered_map<int, int> m_keyMap;
+        std::unordered_map<int, int> m_buttonMap;
     };
 }

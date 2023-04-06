@@ -22,7 +22,7 @@ namespace fl
         virtual ~Window() {}
 
     public:
-        virtual void initialize(cString title, ui16f width, ui16f height, bool resizable, const VerticalSync &vsync) = 0;
+        virtual void initialize(cString title, ui16f width, ui16f height, bool fullscreen, bool resizable, const VerticalSync &vsync) = 0;
         virtual void cleanup() = 0;
 
         virtual void update() = 0;
