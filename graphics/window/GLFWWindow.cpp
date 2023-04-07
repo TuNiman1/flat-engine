@@ -162,25 +162,25 @@ namespace fl
 		delete[] flippedPixels;
 	}
 
-	void GLFWWindow::keyCallback(GLFWWindow *window, int key, int scancode, int action, int mods)
+	void GLFWWindow::keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
 	{
 		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addKeyEvent(key, action != GLFW_RELEASE);
 	}
 
-	void GLFWWindow::buttonCallback(GLFWWindow *window, int button, int action, int mods)
+	void GLFWWindow::buttonCallback(GLFWwindow *window, int button, int action, int mods)
 	{
 		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addButtonEvent(button, action != GLFW_RELEASE);
 	}
 
-	void GLFWWindow::mouseCallback(GLFWWindow *window, double xpos, double ypos)
+	void GLFWWindow::mouseCallback(GLFWwindow *window, double xpos, double ypos)
 	{
 		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addMousePositionEvent(xpos, ypos);
 	}
 
-	void GLFWWindow::scrollCallback(GLFWWindow *window, double xoff, double yoff)
+	void GLFWWindow::scrollCallback(GLFWwindow *window, double xoff, double yoff)
 	{
 		GLFWWindow *w = reinterpret_cast<GLFWWindow *>(glfwGetWindowUserPointer(window));
 		w->m_input.addMouseScrollEvent(yoff);

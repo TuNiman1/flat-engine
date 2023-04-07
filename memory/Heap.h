@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Build.h"
-
 namespace fl
 {
     namespace heap

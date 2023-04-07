@@ -2,7 +2,7 @@
 
 #include <Window.h>
 
-struct GLFWWindow;
+struct GLFWwindow;
 
 namespace fl
 {
@@ -31,12 +31,12 @@ namespace fl
         void captureScreenshot(cString file) const override;
 
     protected:
-        static void keyCallback(GLFWWindow *window, int key, int scancode, int action, int mods);
-        static void buttonCallback(GLFWWindow *window, int button, int action, int mods);
-        static void mouseCallback(GLFWWindow *window, double xpos, double ypos);
-        static void scrollCallback(GLFWWindow *window, double xoff, double yoff);
+        static void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
+        static void buttonCallback(GLFWwindow *window, int button, int action, int mods);
+        static void mouseCallback(GLFWwindow *window, double xpos, double ypos);
+        static void scrollCallback(GLFWwindow *window, double xoff, double yoff);
 
     private:
-        GLFWWindow *m_window;
+        GLFWwindow *m_window;
     };
 }
