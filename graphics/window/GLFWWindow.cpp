@@ -12,6 +12,7 @@
 #endif
 #include "../../debug/Exception.h"
 #include "../../io/ImageSaver.h"
+#include <cstring>
 
 namespace fl
 {

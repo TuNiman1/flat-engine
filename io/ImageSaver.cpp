@@ -1,5 +1,5 @@
 #define STB_IMAGE_WRITE_IMP
-#include "../../../stb/stb_image_write.h"
+#include "../stb/stb_image_write.h"
 #include "ImageSaver.h"
 
 
