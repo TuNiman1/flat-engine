@@ -4,7 +4,7 @@ namespace fl
 {
     class VoxelCubeMeshGen
     {
-        public:
-            void genMesh();
+    public:
+        void genMesh();
     };
 }

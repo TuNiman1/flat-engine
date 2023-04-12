@@ -6,10 +6,10 @@ namespace fl
 {
     class VoxelVertex
     {
-        public:
-            f32v3 position;
-            VoxelVertex() {}
-            VoxelVertex(const f32v3& position) : position(position) {}
-            ~VoxelVertex() {} 
-    }; 
+    public:
+        f32v3 position;
+        VoxelVertex() {}
+        VoxelVertex(const f32v3 &position) : position(position) {}
+        ~VoxelVertex() {}
+    };
 }
